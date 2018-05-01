@@ -63,17 +63,20 @@ void GameArea::next() {
 		}
 	}
 	//--------------------------------------------------
-	for (GameObject *obj : gameObjects) {
+	for (int i(0); i < gameObjects.size(); ++i) {
 		// Collision detection
 		//0 -> Player
 		//1 -> Enemy
 		//2...n -> Rockets obj
-		if (CollisionDetection::CheckCollision(obj, gameObjects.at(1))) {
-			qDebug() << "Collision with Enemy";
-			youWin->play();
-			gameObjects.removeOne(obj);
-			delete obj;
-			qDebug() << "Remove Rocket";
+		if ((gameObjects.size() > 2 && i > 1) && (gameObjects.size() > i))  {
+			qDebug() << "Collision Loop";
+			if (CollisionDetection::CheckCollision(gameObjects.at(i), gameObjects.at(1))) {
+				qDebug() << "Collision with Enemy";
+				youWin->play();
+				gameObjects.at(i);
+				delete gameObjects.at(i);
+				qDebug() << "Remove Rocket"; //Absturz nach Ausgabe
+			}
 		}
 	}
 	this->update();

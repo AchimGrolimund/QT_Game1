@@ -48,7 +48,7 @@ void GameArea::startGame() {
 void GameArea::shoot(int speed, int angle) {
 	Shoot *kugel = new Shoot(88, 495, speed, angle);
 	gameObjects.push_back(kugel);
-	//kugel->paint(painter);
+	//kugel->paint(painter); Absturz wen aktiv...
 }
 
 void GameArea::next() {
@@ -62,6 +62,7 @@ void GameArea::next() {
 			delete obj;
 		}
 	}
+	//--------------------------------------------------
 	for (GameObject *obj : gameObjects) {
 		// Collision detection
 		//0 -> Player

@@ -8,6 +8,7 @@ Shoot::Shoot(int x, int y, int speed, int angle)
 	this->speed = speed;
 	this->angle = angle;
 	qDebug() << "Shoot konstruktor[speed-->" << speed << "]" << "[Angle-->" << angle << "]";
+	t = 0;
 }
 
 void Shoot::move() {
@@ -15,7 +16,7 @@ void Shoot::move() {
 	double rad = 3.1415926 / 180 * angle;
 	int dx = speed / 3 * cos(rad) * t;
 	int dy = speed / 3 * sin(rad) * t - (g / 2 ) * pow(t, 2 );
-	t = t + 0.1;
+	t +=  0.1;
 	x = x + dx / 2 ;
 	y = y - dy / 2 ; // + oder - ......
 	//--------------------------------------------------

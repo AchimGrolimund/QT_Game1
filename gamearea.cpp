@@ -54,30 +54,26 @@ void GameArea::shoot(int speed, int angle) {
 void GameArea::next() {
 	for (GameObject *obj : gameObjects) {
 		obj->move();
+		if (obj->getX() >= 1000 || obj->getY() >= 600) {
+			youLoose->play();
+			qDebug() << "gameObjects size --> " << gameObjects.size();
+			gameObjects.removeOne(obj);
+			qDebug() << "rem gameObjects size --> " << gameObjects.size();
+			delete obj;
+		}
 	}
-//	for (GameObject *obj : gameObjects) {
-//		if (obj->getX() >= 1000 || obj->getY() >= 600) {
-//			qDebug() << "gameObjects size --> " << gameObjects.size();
-//			gameObjects.removeOne(obj);
-//			qDebug() << "rem gameObjects size --> " << gameObjects.size();
-//			delete obj;
-//		}
-//	}
+	for (GameObject *obj : gameObjects) {
+		// Collision detection
+		//0 -> Player
+		//1 -> Enemy
+		//2...n -> Rockets obj
+		if (CollisionDetection::CheckCollision(obj, gameObjects.at(1))) {
+			qDebug() << "Collision with Enemy";
+			youWin->play();
+			gameObjects.removeOne(obj);
+			delete obj;
+			qDebug() << "Remove Rocket";
+		}
+	}
 	this->update();
-	//--------------------------------------------------
-//	/*if (gameObjects.size() >= 2) {
-//		for (int j(2); j < gameObjects.size(); j++) {
-//			// Collision detection
-//			//0 -> Player
-//			//1 -> Enemy
-//			//2...n -> Rockets
-//			if (CollisionDetection::CheckCollision(gameObjects.at(j), gameObjects.at(1))) {
-//				qDebug() << "Collision with Enemy";
-//				youWin->play();
-//				gameObjects.removeAt(j);
-//				qDebug() << "Remove Rocket";
-//				break;
-//			}
-//		}
-//	}*/
 }

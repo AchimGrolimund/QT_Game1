@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/Game/Images">
+        <file>img/background.jpg</file>
+        <file>img/ballon.png</file>
+        <file>img/banana.png</file>
+        <file>img/cmorgan.png</file>
+        <file>img/cmorgan3.png</file>
+        <file>img/gorilla.png</file>
+        <file>img/worms 3 bazooka.png</file>
+        <file>img/Red_Angry.png</file>
+        <file>img/rocket.png</file>
+    </qresource>
+    <qresource prefix="/Game/Sounds">
+        <file>sounds/lauter-boeller-schuss.wav</file>
+        <file>sounds/sfx-explosion-treffer.wav</file>
+        <file>sounds/178875__rocotilos__you-lose-evil.wav</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,16 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\mainwidget.o
+./release\gamearea.o
+./release\gameobject.o
+./release\obstacle.o
+./release\player.o
+./release\shoot.o
+./release\thread.o
+./release\collisiondetection.o
+./release\qrc_res.o
+./release\moc_mainwindow.o
+./release\moc_mainwidget.o
+./release\moc_thread.o
+);

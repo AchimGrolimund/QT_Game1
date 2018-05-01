@@ -1,0 +1,83 @@
+#include "gamearea.h"
+#include "gameobject.h"
+#include "obstacle.h"
+#include "player.h"
+#include "shoot.h"
+#include "thread.h"
+#include "collisiondetection.h"
+
+#include <QDebug>
+#include <QPainter>
+#include <QWidget>
+#include <QSoundEffect>
+
+GameArea::GameArea(QWidget *parent) : QWidget(parent) {
+	Thread *t = new Thread();
+	QObject::connect(t, &Thread::refresh, this, &GameArea::next);
+	t->start();
+	youLoose = new QSoundEffect;
+	youLoose->setSource(QUrl::fromLocalFile(":/Game/Sounds/sounds/178875__rocotilos__you-lose-evil.wav"));
+	youWin = new QSoundEffect;
+	youWin->setSource(QUrl::fromLocalFile(":/Game/Sounds/sounds/sfx-explosion-treffer.wav"));
+}
+
+void GameArea::paintEvent(QPaintEvent *event) {
+	//painter QPainter(this);
+	QPainter painter(this);
+	painter.setRenderHint(QPainter::HighQualityAntialiasing);
+	painter.setPen(QPen(Qt::white, 2));
+	//--------------------------------------------------
+//	painter->drawText((width() - 45) / 2, (height() - 80) / 2,  "GameArea");
+//	painter->drawLine(0, 0, width(), height());
+//	painter->drawLine(width(), 0, 0, height());
+//	painter->drawRect(0, 0, width(), height());
+	//--------------------------------------------------
+	painter.drawImage(0, 0, QImage(":/Game/Images/img/background.jpg"));
+	for (GameObject *x : gameObjects) {
+		x->paint(&painter);
+	}
+}
+void GameArea::startGame() {
+	Obstacle *obst = new Obstacle(700, 20);
+	Player *play = new Player(10, 490);
+	gameObjects.push_back(play);
+	gameObjects.push_back(obst);
+	this->update();
+}
+
+void GameArea::shoot(int speed, int angle) {
+	Shoot *kugel = new Shoot(88, 495, speed, angle);
+	gameObjects.push_back(kugel);
+	//kugel->paint(painter);
+}
+
+void GameArea::next() {
+	for (GameObject *obj : gameObjects) {
+		obj->move();
+	}
+//	for (GameObject *obj : gameObjects) {
+//		if (obj->getX() >= 1000 || obj->getY() >= 600) {
+//			qDebug() << "gameObjects size --> " << gameObjects.size();
+//			gameObjects.removeOne(obj);
+//			qDebug() << "rem gameObjects size --> " << gameObjects.size();
+//			delete obj;
+//		}
+//	}
+	this->update();
+	//--------------------------------------------------
+//	/*if (gameObjects.size() >= 2) {
+//		for (int j(2); j < gameObjects.size(); j++) {
+//			// Collision detection
+//			//0 -> Player
+//			//1 -> Enemy
+//			//2...n -> Rockets
+//			if (CollisionDetection::CheckCollision(gameObjects.at(j), gameObjects.at(1))) {
+//				qDebug() << "Collision with Enemy";
+//				youWin->play();
+//				gameObjects.removeAt(j);
+//				qDebug() << "Remove Rocket";
+//				break;
+//			}
+//		}
+//	}*/
+}

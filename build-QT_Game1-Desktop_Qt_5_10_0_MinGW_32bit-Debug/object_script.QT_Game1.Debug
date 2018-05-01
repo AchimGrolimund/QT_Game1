@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\mainwidget.o
+./debug\gamearea.o
+./debug\gameobject.o
+./debug\obstacle.o
+./debug\player.o
+./debug\shoot.o
+./debug\thread.o
+./debug\collisiondetection.o
+./debug\qrc_res.o
+./debug\moc_mainwindow.o
+./debug\moc_mainwidget.o
+./debug\moc_thread.o
+);
